@@ -42,7 +42,8 @@ class HomeController @Inject()(@Named("stocksActor") stocksActor: ActorRef,
    * @return a fully realized websocket.
    */
   def ws: WebSocket = WebSocket.acceptOrResult[JsValue, JsValue] {
-    case rh if sameOriginCheck(rh) =>
+
+    case rh =>
       wsFutureFlow(rh).map { flow =>
         Right(flow)
       }.recover {
